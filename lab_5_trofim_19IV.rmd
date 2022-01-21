@@ -1,0 +1,72 @@
+---
+title: "Регрессионный анализ набора данных Anscombe (вариант 10)"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r Anscombe}
+library(car)
+data1 <- anscombe
+```
+## 1) Структура набора данных Anscombe
+```{r Anscombe_structura}
+str(anscombe)
+```
+```{r biblioteki}
+#install.packages("ggplot2")
+#install.packages("tidyverse")
+library(ggplot2)
+```
+## 2) График кореляционного поля для фактора income
+```{r Anscombe_grafik_1}
+ggplot() + geom_point(aes(x=data1$income, y=data1$Price), size = 2) + theme_bw(base_size = 18) + xlab("Доход на душу населения, долл.") + ylab("Стоимость, тыс. $") + labs(title = "Кореляционное поле")
+```
+
+## 2) График кореляционного поля для фактора young
+```{r Anscombe_grafik_2}
+ggplot() + geom_point(aes(x=data1$young, y=data1$Price), size = 2) + theme_bw(base_size = 18) + xlab("Доля до 18 лет, на 1000 чел.") + ylab("Стоимость, тыс. $") + labs(title = "Кореляционное поле")
+```
+
+## 2) График кореляционного поля для фактора urban
+```{r Anscombe_grafik_3}
+ggplot() + geom_point(aes(x=data1$urban, y=data1$Price), size = 2) + theme_bw(base_size = 18) + xlab("Доля городских, на 1000 чел.") + ylab("Стоимость, тыс. $") + labs(title = "Кореляционное поле")
+```
+
+## 3) Уравнение парной линейной регрессии для фактора income
+```{r Anscombe_uravnenie_1}
+model_1 <- lm(data1$Price ~ data1$income)
+model_1$coefficients
+```
+
+## 3) Уравнение парной линейной регрессии для фактора young 
+```{r Anscombe_uravnenie_2}
+model_2 <- lm(data1$Price ~ data1$young)
+model_2$coefficients
+```
+
+## 3) Уравнение парной линейной регрессии для фактора urban
+```{r Anscombe_uravnenie_3}
+model_3 <- lm(data1$Price ~ data1$urban)
+model_3$coefficients
+```
+
+## 4) Прогноз по уравнению парной регрессии для фактора income=3200
+```{r Anscombe_prognoz_parn_1}
+nd_1 <- data.frame(data1$income==c(3200))
+predict(model_1, nd_1)
+```
+
+## 4) Прогноз по уравнению парной регрессии для фактора young=347,8
+```{r Anscombe_prognoz_parn_2}
+nd_2 <- data.frame(data1$young==c(347,8))
+predict(model_2, nd_2)
+```
+
+## 4) Прогноз по уравнению парной регрессии для фактора urban=425
+```{r Anscombe_prognoz_parn_3}
+nd_3 <- data.frame(data1$urban==c(425))
+predict(model_3, nd_3)
+```

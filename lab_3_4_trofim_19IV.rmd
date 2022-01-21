@@ -1,0 +1,57 @@
+---
+title: "Отчет по исследовательскому анализу данных датафрейма Anscombe"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Исследование датасета Anscombe
+
+Этот датасет состоит из 51 строки и 4 столбца. Наблюдения проводились в штатах США и Вашингтоне, округ Колумбия, в 1970 году.
+
+**education :** Расходы на образование на душу населения, долл. США.
+
+**income :** Доход на душу населения, долл.
+
+**young :** Доля до 18 лет, на 1000 человек.
+
+**urban :** Доля городских, на 1000.
+
+```{r Anscombe}
+data(state)
+anscombe
+```
+
+## Описательные статистики количественных столбцов
+
+**Cреднее, медиана и дисперсия столбца education (долл.):**
+```{r education_Stat, echo=FALSE}
+dat <- as.data.frame(anscombe)#превращение матрицы в фреймворк
+mean(dat$education)#среднее
+median(dat$education)#медиана
+var(dat$education)#дисперсия
+```
+**Cреднее, медиана и дисперсия столбца income (долл.):**
+```{r income_Stat, echo=FALSE}
+mean(dat$income)#среднее
+median(dat$income)#медиана
+var(dat$income)#дисперсия
+```
+
+```{r education_Barplot, echo=FALSE}
+barplot(dat$education,
+        col="red",
+        xlab="x",
+        ylab="Расходы на образование, долл.",
+        main = "Столбчатая диаграмма education")
+```
+
+```{r income_Barplot, echo=FALSE}
+barplot(dat$income,
+        col="green",
+        xlab="x",
+        ylab="Доход на душу населения, долл.",
+        main = "Столбчатая диаграмма income")
+```
